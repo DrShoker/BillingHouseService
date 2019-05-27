@@ -13,6 +13,7 @@ namespace BH.WebApi.DI
         public static void RegisterServices(this IServiceCollection services)
         {
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserProjectService, UserProjectService>();
         }
 
     }
