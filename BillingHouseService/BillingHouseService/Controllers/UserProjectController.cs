@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BH.ServiceLayer.DTOs.UserProject;
 using BH.ServiceLayer.Services.Interfaces.User;
 using BH.WebApi.Infrastructure.Rest.ActionResults;
 using Microsoft.AspNetCore.Http;
@@ -28,22 +29,28 @@ namespace BH.WebApi.Controllers
             return GetResults.Ok(this, responseData);
         }
 
-        //[HttpPost]
-        //public IActionResult CreateUserProject(Guid userId)
-        //{
+        [HttpPost]
+        public IActionResult CreateUserProject(Guid userId, CreateUserProjectDto requestData)
+        {
+            var responseData = _userProjectService.CreateUserProject(userId, requestData);
 
-        //}
+            return PostResults.Created(this, responseData);
+        }
 
-        //[HttpPut("{id}")]
-        //public IActionResult UpdateUserProject(Guid userId, Guid id)
-        //{
+        [HttpPut]
+        public IActionResult UpdateUserProject(Guid userId, UpdateUserProjectDto requestData)
+        {
+            var responseData = _userProjectService.UpdateUserProject(userId, requestData);
 
-        //}
+            return PutResults.Accepted(this, responseData);
+        }
 
-        //[HttpDelete("{id}")]
-        //public IActionResult DeleteUserProject(Guid userId, Guid id)
-        //{
+        [HttpDelete("{id}")]
+        public IActionResult DeleteUserProject(Guid userId, Guid id)
+        {
+            _userProjectService.DeleteUserProject(userId, id);
 
-        //}
+            return DeleteResults.Deleted(this);
+        }
     }
 }
