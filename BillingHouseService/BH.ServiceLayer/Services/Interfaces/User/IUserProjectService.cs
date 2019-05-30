@@ -13,6 +13,6 @@ namespace BH.ServiceLayer.Services.Interfaces.User
         UserProjectModel GetUserProjectById(Guid id);
         UserProjectModel CreateUserProject(Guid userId, CreateUserProjectDto requestData);
         UserProjectModel UpdateUserProject(Guid userId, UpdateUserProjectDto requestData);
-        void DeleteUserProject(Guid userId, Guid id);
+        void DeleteUserProject(Guid id);
     }
 }

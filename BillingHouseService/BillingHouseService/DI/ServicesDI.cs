@@ -14,6 +14,7 @@ namespace BH.WebApi.DI
         {
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserProjectService, UserProjectService>();
+            services.AddScoped<IProjectSchemaService, ProjectSchemaService>();
         }
 
     }

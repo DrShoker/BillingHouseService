@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BH.WebApi.Controllers
 {
-    [Route("api/{userId}/projects")]
+    [Route("api/users/{userId}/projects")]
     [ApiController]
     public class UserProjectController : ControllerBase
     {
@@ -30,7 +30,7 @@ namespace BH.WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateUserProject(Guid userId, CreateUserProjectDto requestData)
+        public IActionResult CreateUserProject(Guid userId, [FromBody]CreateUserProjectDto requestData)
         {
             var responseData = _userProjectService.CreateUserProject(userId, requestData);
 
@@ -38,7 +38,7 @@ namespace BH.WebApi.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateUserProject(Guid userId, UpdateUserProjectDto requestData)
+        public IActionResult UpdateUserProject(Guid userId, [FromBody]UpdateUserProjectDto requestData)
         {
             var responseData = _userProjectService.UpdateUserProject(userId, requestData);
 
@@ -46,9 +46,9 @@ namespace BH.WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteUserProject(Guid userId, Guid id)
+        public IActionResult DeleteUserProject(Guid id)
         {
-            _userProjectService.DeleteUserProject(userId, id);
+            _userProjectService.DeleteUserProject(id);
 
             return DeleteResults.Deleted(this);
         }

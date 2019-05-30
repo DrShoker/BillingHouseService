@@ -22,7 +22,7 @@ namespace BH.WebApi.Controllers
         }
 
         [HttpPost("signUp")]
-        public IActionResult SignUpUser(UserSignUpDto requestData)
+        public IActionResult SignUpUser([FromBody]UserSignUpDto requestData)
         {
             _userService.SignUpUser(requestData);
 
@@ -30,7 +30,7 @@ namespace BH.WebApi.Controllers
         }
 
         [HttpPost("singIn")]
-        public IActionResult SingInUser(UserSingInDto requestData)
+        public IActionResult SingInUser([FromBody]UserSingInDto requestData)
         {
             var responseData = _userService.SingInUser(requestData);
 

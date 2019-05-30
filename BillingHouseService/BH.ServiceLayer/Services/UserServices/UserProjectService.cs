@@ -76,9 +76,8 @@ namespace BH.ServiceLayer.Services.UserServices
             return GetUserProjectById(dbUserProj.Id);
         }
 
-        public void DeleteUserProject(Guid userId, Guid id)
+        public void DeleteUserProject(Guid id)
         {
-            _contextEntities.Repository.GetById<User>(userId);
             _contextEntities.Delete<UserProject>(id);
             _contextEntities.Save();
         }
