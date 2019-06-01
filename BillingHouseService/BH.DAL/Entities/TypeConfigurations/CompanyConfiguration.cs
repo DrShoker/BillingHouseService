@@ -11,7 +11,7 @@ namespace BH.DAL.Entities.TypeConfigurations
     {
         public void Configure(EntityTypeBuilder<Company> builder)
         {
-            
+            builder.HasIndex(prop => prop.Name).IsUnique();            
         }
     }
 }

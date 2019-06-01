@@ -21,6 +21,9 @@ namespace BH.ServiceLayer.Configurations.MapperProfiles.UserProfile
                 .ForMember(projSch => projSch.UserProjectId, opt => opt.Ignore())
                 .ForMember(projSch => projSch.Walls, opt => opt.Ignore());
             CreateMap<SchemeWall, SchemaWallModel>();
+            CreateMap<CreateSchemaWallDto, SchemeWall>();
+            CreateMap<UpdateSchemaWallDto, SchemeWall>()
+                .ForMember(schWall => schWall.ProjectSchemeId, opt => opt.Ignore());
         }
     }
 }

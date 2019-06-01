@@ -70,8 +70,8 @@ namespace BH.WebApi.Controllers
             return GetResults.Ok(this, responseData);
         }
 
-        [HttpPost("{schemaId/walls}")]
-        public IActionResult CreateSchemaWall(Guid schemaId, [FromBody]decimal requestData)
+        [HttpPost("{schemaId}/walls")]
+        public IActionResult CreateSchemaWall(Guid schemaId, [FromBody]CreateSchemaWallDto requestData)
         {
             var responseData = _projectSchemaService.CreateSchemaWall(schemaId, requestData);
 
@@ -79,7 +79,7 @@ namespace BH.WebApi.Controllers
         }
 
         [HttpPut("{schemaId}/walls")]
-        public IActionResult UpdateSchemaWall(Guid schemaId, [FromBody]KeyValuePair<Guid, decimal> requestData)
+        public IActionResult UpdateSchemaWall(Guid schemaId, [FromBody]UpdateSchemaWallDto requestData)
         {
             var responseData = _projectSchemaService.UpdateSchemaWall(schemaId, requestData);
 

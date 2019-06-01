@@ -100,12 +100,12 @@ namespace BH.ServiceLayer.Services.UserServices
             return responseData;
         }
 
-        public SchemaWallModel CreateSchemaWall(Guid schemaId, decimal requestData)
+        public SchemaWallModel CreateSchemaWall(Guid schemaId, CreateSchemaWallDto requestData)
         {
             _contextEntities.Repository.GetById<ProjectScheme>(schemaId);
-            var schemaWall = new SchemeWall();
+
+            var schemaWall = _mapper.Map<SchemeWall>(requestData);
             schemaWall.Id = Guid.NewGuid();
-            schemaWall.Area = requestData;
             schemaWall.ProjectSchemeId = schemaId;
 
             _contextEntities.Create(schemaWall);
@@ -114,15 +114,16 @@ namespace BH.ServiceLayer.Services.UserServices
             return GetSchemaWallById(schemaWall.Id);
         }
 
-        public SchemaWallModel UpdateSchemaWall(Guid schemaId, KeyValuePair<Guid, decimal> requestData)
+        public SchemaWallModel UpdateSchemaWall(Guid schemaId, UpdateSchemaWallDto requestData)
         {
             _contextEntities.Repository.GetById<ProjectScheme>(schemaId);
-            var dbSchemaWall = _contextEntities.Repository.GetById<SchemeWall>(requestData.Key);
-            dbSchemaWall.Area = requestData.Value;
+            var dbSchemaWall = _contextEntities.Repository.GetById<SchemeWall>(requestData.Id);
+
+            _mapper.Map(requestData, dbSchemaWall);
 
             _contextEntities.Save();
 
-            return GetSchemaWallById(requestData.Key);
+            return GetSchemaWallById(requestData.Id);
         }
 
         public void DeleteSchemaWall(Guid id)
