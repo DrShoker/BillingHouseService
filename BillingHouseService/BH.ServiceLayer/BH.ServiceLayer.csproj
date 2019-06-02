@@ -12,8 +12,4 @@
     <ProjectReference Include="..\BH.DTOL\BH.DTOL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DTOs\CompanyPhones\" />
-  </ItemGroup>
-
 </Project>

@@ -6,6 +6,7 @@ namespace BH.ServiceLayer.DTOs.User.Models
 {
     public class UserSignInModel
     {
+        public Guid Id { get; set; }
         public string Email { get; set; }
         public string DisplayName { get; set; }
         public string AuthToken { get; set; }
