@@ -15,10 +15,12 @@ namespace BH.WebApi.Controllers
     public class ConstructionWorksController : ControllerBase
     {
         private readonly IConstructionWorksService _constructionWorksService;
+        private readonly ICompanyConstructionWorksService _companyConstructionWorksService;
 
-        public ConstructionWorksController(IConstructionWorksService constructionWorksService)
+        public ConstructionWorksController(IConstructionWorksService constructionWorksService, ICompanyConstructionWorksService companyConstructionWorksService)
         {
             _constructionWorksService = constructionWorksService;
+            _companyConstructionWorksService = companyConstructionWorksService;
         }
 
         [HttpGet]
@@ -59,6 +61,14 @@ namespace BH.WebApi.Controllers
             _constructionWorksService.DeleteConstructionWorks(id);
 
             return DeleteResults.Deleted(this);
+        }
+
+        [HttpGet("{workId}/companies/{companyId}")]
+        public IActionResult GetCompanyConstructionWorks(Guid companyId, Guid workId)
+        {
+
+
+            return GetResults.Ok(this);
         }
     }
 }

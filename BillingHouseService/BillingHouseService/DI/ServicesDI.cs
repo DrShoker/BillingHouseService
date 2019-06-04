@@ -24,6 +24,7 @@ namespace BH.WebApi.DI
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IFeedbackService, FeedbackService>();
             services.AddScoped<IConstructionWorksService, ConstructionWorksService>();
+            services.AddScoped<ICompanyConstructionWorksService, CompanyConstructionWorksService>();
         }
     }
 }
