@@ -51,11 +51,13 @@ AppRoute.propTypes = {
 
 export default connect(store => ({
   authToken: store.authReducer.authToken,
-}), {
-  logout,
-  setRoles,
-  getVersion,
-  closeDialog,
-  confirmDeleteDialog,
-  closeAlertDialog,
-}(AppRoute));
+}))
+//, {
+  // logout,
+  // setRoles,
+  // getVersion,
+  // closeDialog,
+  // confirmDeleteDialog,
+  // closeAlertDialog,
+//}
+(AppRoute);
