@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BH.ServiceLayer.Services.CompanyServices;
+using BH.ServiceLayer.Services.ConstructionMaterialServices;
 using BH.ServiceLayer.Services.ConstructionWorksServices;
 using BH.ServiceLayer.Services.FeedbackServices;
+using BH.ServiceLayer.Services.Interfaces;
 using BH.ServiceLayer.Services.Interfaces.Company;
+using BH.ServiceLayer.Services.Interfaces.ConstructionMaterial;
 using BH.ServiceLayer.Services.Interfaces.ConstructionWorks;
 using BH.ServiceLayer.Services.Interfaces.Feedback;
 using BH.ServiceLayer.Services.Interfaces.User;
@@ -25,6 +28,8 @@ namespace BH.WebApi.DI
             services.AddScoped<IFeedbackService, FeedbackService>();
             services.AddScoped<IConstructionWorksService, ConstructionWorksService>();
             services.AddScoped<ICompanyConstructionWorksService, CompanyConstructionWorksService>();
+            services.AddScoped<IConstructionMaterialService, ConstructionMaterialService>();
+            services.AddScoped<ICompanyConstructionMaterialService, CompanyConstructionMaterialService>();
         }
     }
 }
