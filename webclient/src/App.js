@@ -7,47 +7,46 @@ import {
 import history from './utils/history';
 import DocumentTitle from 'react-document-title';
 import { applicationTitle } from './utils/applicationTitle';
-import {signinRequest} from './pages/login/actions/loginActions'
+import { signinRequest } from './pages/login/actions/loginActions';
+import  LoginPage  from './pages/login/login-page';
 
 import './App.css';
 
 class AppRoute extends Component {
 
-  componentDidMount() {
-    const {
-      signinRequest
-    } = this.props;
+  // componentDidMount() {
+  //   const {
+  //     signinRequest
+  //   } = this.props;
 
-    signinRequest({email: 'shokergood@gmail.com', password: '060198'})
-    console.log("WTF");
-  }
+  //   signinRequest({email: 'shokergood@gmail.com', password: '060198'})
+  //   console.log("WTF");
+  // }
 
   render() {
     const {
-      authToken,
-      userId
+      userId,
     } = this.props;
-    const rights = authToken ? true : false;
+    const rights = userId ? true : false;
 
     return (
       <DocumentTitle title={applicationTitle.getTitile('bh')}>
         <Router history={history}>
           <div className='app'>
-            <div>{userId}</div>
             {rights ? (
               <Switch>
-                {/* <Route exact path="/" component={MapPage} />
+                {/* <Route exact path="/" component={MapPage} /> */}
                 <Route path="/login" component={LoginPage} />
-                <Route path="/registration" component={RegistrationPage} />
-                <Route path="/email-registration" component={EmailRegistrationPage} />
-                <Route path="/finish-registration" component={FinishRegistrationPage} />
-                <Route path="/refresh-password" component={RefreshPasswordPage} />
-                <Route path="/forgot-password" component={ForgotPasswordPage} />
-                <Route path="/profile" component={Profile} /> */}
+                {/* <Route path="/registration" component={RegistrationPage} /> */}
+                {/* <Route path="/email-registration" component={EmailRegistrationPage} /> */}
+                {/* <Route path="/finish-registration" component={FinishRegistrationPage} /> */}
+                {/* <Route path="/refresh-password" component={RefreshPasswordPage} /> */}
+                {/* <Route path="/forgot-password" component={ForgotPasswordPage} /> */}
+                {/* <Route path="/profile" component={Profile} /> */}
               </Switch>
             ) : (
               <Switch>
-                {/* <Route exact path='/login' component={LoginPage} /> */}
+                <Route exact path='/login' component={LoginPage} />
                 <Redirect to='/login' />
               </Switch>
             )}
@@ -64,7 +63,7 @@ AppRoute.propTypes = {
 
 export default connect(store => ({
   authToken: store.authReducer.authToken,
-  userId: store.authReducer.Id
+  userId: store.authReducer.id
 }),
 {
   signinRequest,

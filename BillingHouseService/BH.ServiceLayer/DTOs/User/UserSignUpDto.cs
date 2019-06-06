@@ -19,7 +19,5 @@ namespace BH.ServiceLayer.DTOs.User
         public string Password { get; set; }
 
         public string RepeatedPassword { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
     }
 }
