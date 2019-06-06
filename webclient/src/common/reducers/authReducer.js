@@ -1,7 +1,9 @@
 import { SET_AUTHDATA, LOGOUT } from './../actions/authActions';
 
 const initialState = {
-    user: null,
+    id: null,
+    email: null,
+    displayName: null,
     authToken: null,
 };
   
@@ -11,7 +13,9 @@ export default function authReducer (state = initialState, action) {
       case LOGOUT:
         return {
           ...state,
-          user: action.payload.user,
+          id: action.payload.id,
+          email: action.payload.email,
+          displayName: action.payload.displayName,
           authToken: action.payload.authToken,
         };
       default:

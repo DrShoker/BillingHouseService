@@ -7,13 +7,25 @@ import {
 import history from './utils/history';
 import DocumentTitle from 'react-document-title';
 import { applicationTitle } from './utils/applicationTitle';
+import {signinRequest} from './pages/login/actions/loginActions'
 
 import './App.css';
 
 class AppRoute extends Component {
+
+  componentDidMount() {
+    const {
+      signinRequest
+    } = this.props;
+
+    signinRequest({email: 'shokergood@gmail.com', password: '060198'})
+    console.log("WTF");
+  }
+
   render() {
     const {
-      authToken
+      authToken,
+      userId
     } = this.props;
     const rights = authToken ? true : false;
 
@@ -21,6 +33,7 @@ class AppRoute extends Component {
       <DocumentTitle title={applicationTitle.getTitile('bh')}>
         <Router history={history}>
           <div className='app'>
+            <div>{userId}</div>
             {rights ? (
               <Switch>
                 {/* <Route exact path="/" component={MapPage} />
@@ -51,13 +64,14 @@ AppRoute.propTypes = {
 
 export default connect(store => ({
   authToken: store.authReducer.authToken,
-}))
-//, {
+  userId: store.authReducer.Id
+}),
+{
+  signinRequest,
   // logout,
   // setRoles,
   // getVersion,
   // closeDialog,
   // confirmDeleteDialog,
   // closeAlertDialog,
-//}
-(AppRoute);
+})(AppRoute);

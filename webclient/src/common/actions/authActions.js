@@ -1,19 +1,22 @@
 export const SET_AUTHDATA = '@auth/SET_AUTHDATA';
 export const LOGOUT = '@auth/LOGOUT';
 
-export const setAuthData = ({user, authToken}) => ({
+export const setAuthData = ({email, displayName, id, authToken}) => ({
     type: SET_AUTHDATA,
     payload: {
-      user,
-      authToken,
+      email,
+      displayName,
+      id,
+      authToken
     }
 });
 
 export const logout = () => ({
     type: LOGOUT,
     payload: {
-        user: null,
-        refreshToken: null,
+        email: null,
+        displayName: null,
+        id: null,
         authToken: null,
     }
 });

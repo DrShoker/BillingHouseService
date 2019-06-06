@@ -1,6 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
-import history from 'utils/history';
+import history from './../utils/history';
 import config from '../config';
 
 const apiRoot = `${config.host}`;
