@@ -14,7 +14,7 @@ export function* Authorize(action) {
         yield put(setAuthData(responseData.data));
         history.push('/main');
     } catch (error) {
-
+        console.log("QQQQQQQQQQQQ")
     }
 }
 
@@ -27,7 +27,7 @@ export function* Register(action) {
         });
         yield put(successRegister());
     } catch (error) {
-
+        console.log("QQQQQQQQQQQQ")
     }
 }
 

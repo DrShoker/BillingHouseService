@@ -1,0 +1,118 @@
+.sidebar-cont {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    height: 100%;
+    background: #232323;
+    transition: 0.2s;
+    overflow: hidden;
+    position: absolute;
+}
+
+.sidebar-container a {
+    text-decoration: none;
+}
+
+.expanded {
+    width: 230px;
+}
+
+.collapsed {
+    width: 65px;
+}
+
+.selected-tab {
+    background: black;
+}
+
+.sidebar-row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 50px;
+    padding: 0 20px;
+    transition: 0.2s;
+    cursor: default;
+}
+
+.sidebar-option:hover {
+    background: black;
+    cursor: pointer;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    margin: 0 0 0 35px;
+    cursor: pointer;
+}
+
+.sidebar-row-svg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    cursor: pointer;
+    color: white !important;
+
+}
+
+.sidebar-row-text {
+    color: white;
+    user-select: none;
+    margin: 0 0 0 35px;
+}
+
+.text-expanded {
+    opacity: 1;
+    visibility: visible;
+    transition: 0.5s;
+    color: white;
+}
+
+.text-expanded.span {
+    padding-left: 7%;
+    font-size: 20px;
+}
+
+.text-collapsed {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.split-dashboard {
+    width: 225px;
+}
+
+.admin-tools {
+    padding-left: 9.33%;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 14px;
+
+    color: rgba(255, 255, 255, 0.54);
+}
+
+.sidebar-container{
+    flex: 1 0 auto;
+}
+
+.sidebar-footer{
+    min-height: 40px;
+    width: 225px;
+    text-align: center; 
+    flex: 0 0 auto;
+}
+
+.version-tools{
+    user-select: none;
+    color: white;
+}
+
+.links__text-decoration--none {
+    text-decoration: none;
+    color: black;
+}

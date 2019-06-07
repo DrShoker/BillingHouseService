@@ -9,6 +9,8 @@ import DocumentTitle from 'react-document-title';
 import { applicationTitle } from './utils/applicationTitle';
 import { signinRequest } from './pages/login/actions/loginActions';
 import  LoginPage  from './pages/login/login-page';
+import TopBar from './common/components/appBar/appBar';
+import SidebarComponent from './common/components/sideBar/sideBar';
 
 import './App.css';
 
@@ -33,6 +35,8 @@ class AppRoute extends Component {
       <DocumentTitle title={applicationTitle.getTitile('bh')}>
         <Router history={history}>
           <div className='app'>
+            <TopBar />
+            <SidebarComponent />
             {rights ? (
               <Switch>
                 {/* <Route exact path="/" component={MapPage} /> */}
