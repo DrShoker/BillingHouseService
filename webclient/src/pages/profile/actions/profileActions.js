@@ -10,6 +10,9 @@ export const GET_SCHEMAS_LIST_REQUEST = '@schemas/GET_SCHEMAS_LIST_REQUEST';
 export const SET_SCHEMAS_LIST = '@schemas/SET_SCHEMAS_LIST';
 export const GET_SCHEMA_DETAILS_REQUEST = '@schemas/GET_SCHEMA_DETAILS_REQUEST';
 export const SET_SCHEMA_DETAILS = '@schemas/SET_SCHEMA_DETAILS';
+export const UPDATE_SCHEMA_REQUEST = '@projects/UPDATE_SCHEMA_REQUEST';
+export const CREATE_SCHEMA_REQUEST = '@projects/CREATE_SCHEMA_REQUEST';
+export const DELETE_SCHEMA_REQUEST = '@projects/DELETE_SCHEMA_REQUEST';
 
 export const getProjectsListRequest = ({ userId }) => ({
     type: GET_PROJECTS_LIST_REQUEST,
@@ -78,5 +81,33 @@ export const setSchemaDetails = (schemaDetails) => ({
     type: SET_SCHEMA_DETAILS,
     payload: {
         schemaDetails, 
+    }
+});
+
+export const updateSchemaRequest = ({ userId, projectId, schemaId, schema }) => ({
+    type: UPDATE_SCHEMA_REQUEST,
+    payload: {
+        userId,
+        projectId,
+        schemaId,
+        schema
+    }
+});
+
+export const createSchemaRequest = ({ userId, projectId, schema }) => ({
+    type: CREATE_SCHEMA_REQUEST,
+    payload: {
+        userId,
+        projectId,
+        schema
+    }
+});
+
+export const deleteSchemaRequest = ({ userId, projectId, schemaId }) => ({
+    type: DELETE_SCHEMA_REQUEST,
+    payload: {
+        userId,
+        projectId,
+        schemaId
     }
 });

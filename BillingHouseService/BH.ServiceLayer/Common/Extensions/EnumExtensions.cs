@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BH.ServiceLayer.DTOs.Common.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -34,6 +35,27 @@ namespace BH.ServiceLayer.Common.Extensions
             }
 
             return null; // could also return string.Empty
+        }
+
+        public static IEnumerable<ListItemModel<int>> GetEnumElementsDescription(Type type)
+        {
+            if (!type.IsEnum)
+                return null;
+            Array values = System.Enum.GetValues(type);
+            var enumsDescription = new List<ListItemModel<int>>();
+            foreach (int val in values)
+            {
+                var memInfo = type.GetMember(type.GetEnumName(val));
+                var descriptionAttribute = memInfo[0]
+                    .GetCustomAttributes(typeof(DescriptionAttribute), false)
+                    .FirstOrDefault() as DescriptionAttribute;
+
+                if (descriptionAttribute != null)
+                {
+                    enumsDescription.Add(new ListItemModel<int> { Id = val, Name = descriptionAttribute.Description });
+                }
+            }
+            return enumsDescription;
         }
     }
 }

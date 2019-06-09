@@ -6,10 +6,14 @@ import {
     createProjectRequest,
     deleteProjectRequest,
     getSchemasListRequest,
-    getSchemaDetailsRequest
+    getSchemaDetailsRequest,
+    updateSchemaRequest,
+    createSchemaRequest,
+    deleteSchemaRequest
 } from './actions/profileActions';
 import Grid from '@material-ui/core/Grid';
 import ChromeReaderMode from '@material-ui/icons/ChromeReaderMode';
+import Description from '@material-ui/icons/Description';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import './profile-page.css'
@@ -29,7 +33,7 @@ export class ProfilePage extends React.Component {
         isSchemasSettingsVisible: false,
         isSchemasListVisible: false,
         schemaId: '',
-        schemaDetails: this.props.schemaDetails || {}
+        schema: {}
     };
 
     // static getDerivedStateFromProps(nextProps, prevState) {
@@ -46,6 +50,7 @@ export class ProfilePage extends React.Component {
         this.setState({
             isProjectItemOpen: true,
             isSettingsItemOpen: false,
+            isModadVisible: false
         }, () => { getProjectsListRequest({ userId }); });
     };
 
@@ -67,7 +72,8 @@ export class ProfilePage extends React.Component {
         this.setState({
             isSchemasSettingsVisible: true,
             schemaId: schemaItem.id,
-            isEditSchema: true
+            isEditSchema: true,
+            isSchemasListVisible: false
         });
         getSchemaDetailsRequest({ userId, projectId, schemaId: schemaItem.id });
     }
@@ -75,6 +81,7 @@ export class ProfilePage extends React.Component {
     onEditProjectClick = () => {
         this.setState({
             isProjectSettingsVisible: false,
+            isProjectItemOpen: false,
             isModadVisible: true,
             modalTitle: 'Edit Project',
             isEditProject: true
@@ -86,7 +93,8 @@ export class ProfilePage extends React.Component {
         const { projectId } = this.state;
         this.setState({
             isProjectSettingsVisible: false,
-            isSchemasListVisible: true
+            isSchemasListVisible: true,
+            isProjectItemOpen: false
         });
         getSchemasListRequest({ userId, projectId });
     }
@@ -94,6 +102,7 @@ export class ProfilePage extends React.Component {
     onCreateProjectClick = () => {
         this.setState({
             isProjectSettingsVisible: false,
+            isProjectItemOpen: false,
             isModadVisible: true,
             modalTitle: 'Create Project',
             isEditProject: false
@@ -108,25 +117,77 @@ export class ProfilePage extends React.Component {
     }
 
     onSchemaNameChange = (newValue) => {
-        console.log(newValue.target.value);
-        this.setState(prevState => ({
-            // schemaDetails: {    
-            //     ...prevState.schemaDetails,
-            //     name: newValue.target.value
-            // }
-        }), () =>console.log(newValue.target.value));
+        this.setState({
+            schema: {
+                ...this.state.schema,
+                name: newValue.target.value
+            }
+        });
+    }
+
+    onSchemaWallsAreaChange = (newValue) => {
+        this.setState({
+            schema: {
+                ...this.state.schema,
+                wallsArea: newValue.target.value
+            }
+        });
+    }
+
+    onSchemaFloorAreaChange = (newValue) => {
+        this.setState({
+            schema: {
+                ...this.state.schema,
+                floorArea: newValue.target.value
+            }
+        });
+    }
+
+    onSchemaCeilingAreaChange = (newValue) => {
+        this.setState({
+            schema: {
+                ...this.state.schema,
+                ceilingArea: newValue.target.value
+            }
+        });
+    }
+
+    onSchemaCeilingPerimeterChange = (newValue) => {
+        this.setState({
+            schema: {
+                ...this.state.schema,
+                ceilingPerimeter: newValue.target.value
+            }
+        });
+    }
+
+    onSchemaFloorPerimeterChange = (newValue) => {
+        this.setState({
+            schema: {
+                ...this.state.schema,
+                floorPerimeter: newValue.target.value
+            }
+        });
     }
 
     updateProject = () => {
         const { userId } = this.props;
         const { projectId, projectName } = this.state;
         this.props.updateProjectRequest({ userId, projectId, projectName });
+        this.setState({
+            isProjectItemOpen: true,
+            isModadVisible: false
+        });
     }
 
     createProject = () => {
         const { userId } = this.props;
         const { projectName } = this.state;
         this.props.createProjectRequest({ userId, projectName });
+        this.setState({
+            isProjectItemOpen: true,
+            isModadVisible: false
+        });
     }
 
     deleteProject = () => {
@@ -139,9 +200,64 @@ export class ProfilePage extends React.Component {
     }
 
     updateSchema = () => {
-        const { userId } = this.props;
-        const { projectId, schemaId } = this.state;
+        const { userId, updateSchemaRequest } = this.props;
+        const { projectId, schemaId, schema } = this.state;
+        updateSchemaRequest({ userId, projectId, schemaId, schema });
+        this.setState({
+            isSchemasSettingsVisible: false,
+            isSchemasListVisible: true
+        })
+    }
 
+    createSchema = () => {
+        const { userId, createSchemaRequest } = this.props;
+        const { projectId, schema } = this.state;
+        createSchemaRequest({ userId, projectId, schema });
+        this.setState({
+            isSchemasSettingsVisible: false,
+            isSchemasListVisible: true
+        })
+    }
+
+    onClose = () => {
+        this.setState({
+            isProjectSettingsVisible: false,
+            isProjectItemOpen: false,
+            isModadVisible: false,
+            isEditProject: false
+        })
+    }
+
+    onBack = () => {
+        this.setState({
+            isProjectItemOpen: true,
+            isSchemasListVisible: false
+        })
+    }
+
+    onCancel = () => {
+        this.setState({
+             isSchemasSettingsVisible: false,
+            isSchemasListVisible: true
+        });
+    }
+
+    onCreateNewSchemaClick = () => {
+        this.setState({
+            isSchemasListVisible: false,
+            isEditSchema: false,
+            isSchemasSettingsVisible: true
+        });
+    }
+
+    deleteSchema = () => {
+        const { userId, deleteSchemaRequest } = this.props;
+        const { projectId, schemaId } = this.state;
+        deleteSchemaRequest({ userId, projectId, schemaId });
+        this.setState({
+            isSchemasSettingsVisible: false,
+            isSchemasListVisible: true
+        });
     }
 
     render() {
@@ -154,7 +270,7 @@ export class ProfilePage extends React.Component {
             isSchemasSettingsVisible,
             isSchemasListVisible,
             isEditSchema,
-            schemaDetails,
+            isProjectItemOpen
         } = this.state;
         const { projectsList, schemasList } = this.props;
         return (
@@ -174,20 +290,50 @@ export class ProfilePage extends React.Component {
                 </div>
                 <div className="profile-area">
                     {
-                        !!projectsList.length && (
-                            <div className="projects-list">
+                        isProjectItemOpen && (
+                            <div>
                                 {
-                                    projectsList.map(item => (
-                                        <div className="projects-item" onClick={() => this.onProjectItemClick(item)}>
-                                            <span>{item.name}</span>
+                                    !!projectsList.length && (
+                                        <div className="projects-list">
+                                            {
+                                                projectsList.map(item => (
+                                                    <div className="projects-item" onClick={() => this.onProjectItemClick(item)}>
+                                                        <div>
+                                                            <Description className="item-icon" />
+                                                            <span>{item.name}</span>
+                                                        </div>
+                                                    </div>
+                                                ))
+                                            }
+
                                         </div>
-                                    ))
+                                    )
                                 }
-                                <div className="projects-item">
-                                    <span>Next</span>
-                                </div>
-                                <div className="projects-item" onClick={this.onCreateProjectClick}>
-                                    <span>Create new</span>
+                                <div className="projects-list-buttons">
+                                    <Button
+                                        className="ok-button"
+                                        size="medium"
+                                        variant="contained"
+                                        onClick={this.onClose}
+                                    >
+                                        Close
+                                    </Button>
+                                    <Button
+                                        className="ok-button"
+                                        size="medium"
+                                        variant="contained"
+                                        onClick={this.onCreateProjectClick}
+                                    >
+                                        Create New
+                                    </Button>
+                                    <Button
+                                        className="ok-button"
+                                        size="medium"
+                                        variant="contained"
+                                        onClick={isEditProject ? this.updateProject : this.createProject}
+                                    >
+                                        Next
+                                    </Button>
                                 </div>
                             </div>
                         )
@@ -195,15 +341,30 @@ export class ProfilePage extends React.Component {
                     {
                         isProjectSettingsVisible && (
                             <div className="project-settings">
-                                <div className="project-settings-item" onClick={this.onViewSchemasClick}>
-                                    <span>View Schemas</span>
-                                </div>
-                                <div className="project-settings-item" onClick={this.onEditProjectClick}>
-                                    <span>Edit Project</span>
-                                </div>
-                                <div className="project-settings-item" onClick={this.deleteProject}>
-                                    <span>Delete Project</span>
-                                </div>
+                                <Button
+                                    className="ok-button"
+                                    size="medium"
+                                    variant="contained"
+                                    onClick={this.onEditProjectClick}
+                                >
+                                    Edit
+                                    </Button>
+                                <Button
+                                    className="ok-button"
+                                    size="medium"
+                                    variant="contained"
+                                    onClick={this.onViewSchemasClick}
+                                >
+                                    View Schemas
+                                    </Button>
+                                <Button
+                                    className="ok-button"
+                                    size="medium"
+                                    variant="contained"
+                                    onClick={this.deleteProject}
+                                >
+                                    Delete
+                                </Button>
                             </div>
                         )
                     }
@@ -234,25 +395,55 @@ export class ProfilePage extends React.Component {
                                         onClick={isEditProject ? this.updateProject : this.createProject}
                                     >
                                         Ok
-                                        </Button>
+                                    </Button>
                                 </div>
                             </div>
                         )
                     }
                     {
                         isSchemasListVisible && (
-                            <div className="schemas-list">
+                            <div>
                                 {
                                     !!schemasList.length && (
-                                        schemasList.map(item => (
-                                            <div className="schemas-item" onClick={() => this.onSchemaItemClick(item)}>
-                                                <span>{item.name}</span>
-                                            </div>
-                                        ))
+                                        <div className="projects-list">
+                                            {
+                                                schemasList.map(item => (
+                                                    <div className="projects-item" onClick={() => this.onSchemaItemClick(item)}>
+                                                        <div>
+                                                            <Description className="item-icon" />
+                                                            <span>{item.name}</span>
+                                                        </div>
+                                                    </div>
+                                                ))
+                                            }
+                                        </div>
                                     )
                                 }
-                                <div className="schemas-item">
-                                    <span>Create new</span>
+                                <div className="projects-list-buttons">
+                                    <Button
+                                        className="ok-button"
+                                        size="medium"
+                                        variant="contained"
+                                        onClick={this.onBack}
+                                    >
+                                        Back
+                                    </Button>
+                                    <Button
+                                        className="ok-button"
+                                        size="medium"
+                                        variant="contained"
+                                        onClick={this.onCreateNewSchemaClick}
+                                    >
+                                        Create New
+                                    </Button>
+                                    <Button
+                                        className="ok-button"
+                                        size="medium"
+                                        variant="contained"
+                                        onClick={isEditProject ? this.updateProject : this.createProject}
+                                    >
+                                        Next
+                                    </Button>
                                 </div>
                             </div>
                         )
@@ -271,7 +462,7 @@ export class ProfilePage extends React.Component {
                                             </Grid>
                                             <Grid item>
                                                 <TextField
-                                                    id="input-with-icon-grid"
+                                                    id="input-with-icon-gri"
                                                     label="Schema Name"
                                                     defaultValue=''
                                                     onChange={this.onSchemaNameChange}
@@ -288,7 +479,7 @@ export class ProfilePage extends React.Component {
                                                 <TextField
                                                     id="input-with-icon-grid"
                                                     label="Walls Area"
-                                                    onChange={this.onProjectNameChange}
+                                                    onChange={this.onSchemaWallsAreaChange}
                                                 />
                                             </Grid>
                                         </Grid>
@@ -302,7 +493,7 @@ export class ProfilePage extends React.Component {
                                                 <TextField
                                                     id="input-with-icon-grid"
                                                     label="Floor Area"
-                                                    onChange={this.onProjectNameChange}
+                                                    onChange={this.onSchemaFloorAreaChange}
                                                 />
                                             </Grid>
                                         </Grid>
@@ -316,7 +507,7 @@ export class ProfilePage extends React.Component {
                                                 <TextField
                                                     id="input-with-icon-grid"
                                                     label="Ceiling Area"
-                                                    onChange={this.onProjectNameChange}
+                                                    onChange={this.onSchemaCeilingAreaChange}
                                                 />
                                             </Grid>
                                         </Grid>
@@ -330,7 +521,7 @@ export class ProfilePage extends React.Component {
                                                 <TextField
                                                     id="input-with-icon-grid"
                                                     label="Ceiling Perimeter"
-                                                    onChange={this.onProjectNameChange}
+                                                    onChange={this.onSchemaCeilingPerimeterChange}
                                                 />
                                             </Grid>
                                         </Grid>
@@ -344,7 +535,7 @@ export class ProfilePage extends React.Component {
                                                 <TextField
                                                     id="input-with-icon-grid"
                                                     label="Floor Perimeter"
-                                                    onChange={this.onProjectNameChange}
+                                                    onChange={this.onSchemaFloorPerimeterChange}
                                                 />
                                             </Grid>
                                         </Grid>
@@ -356,9 +547,9 @@ export class ProfilePage extends React.Component {
                                             className="schema-concrete-button"
                                             size="medium"
                                             variant="contained"
-                                            onClick={isEditProject ? this.updateProject : this.createProject}
+                                            onClick={isEditSchema ? this.updateSchema : this.createSchema}
                                         >
-                                            Edit
+                                            Ok
                                         </Button>
                                     </div>
                                     <div className="schema-button">
@@ -366,11 +557,23 @@ export class ProfilePage extends React.Component {
                                             className="schema-concrete-button"
                                             size="medium"
                                             variant="contained"
-                                            onClick={isEditProject ? this.updateProject : this.createProject}
+                                            onClick={this.onCancel}
                                         >
-                                            Works
+                                            Cancel
                                         </Button>
                                     </div>
+                                    { isEditSchema && (
+                                        <div className="schema-button">
+                                            <Button
+                                                className="schema-concrete-button"
+                                                size="medium"
+                                                variant="contained"
+                                                onClick={this.deleteSchema}
+                                            >
+                                                Delete
+                                            </Button>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         )
@@ -393,5 +596,8 @@ export default connect(store => ({
         createProjectRequest,
         deleteProjectRequest,
         getSchemasListRequest,
-        getSchemaDetailsRequest
+        getSchemaDetailsRequest,
+        updateSchemaRequest,
+        createSchemaRequest,
+        deleteSchemaRequest
     })(ProfilePage);

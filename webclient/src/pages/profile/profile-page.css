@@ -62,37 +62,36 @@
 .projects-list {
     position: relative;
     width: fit-content;
-    left: 86%;
-    min-width: 167px;
+    /* left: 86%; */
+    /* min-width: 167px; */
+    width: 100%;
 }
 
 .projects-item {
     height: 50px;
-    width: fit-content;
-    min-width: 167px;
-    text-align: center;
     display: flex;
     justify-content: center;
-    flex-direction: column;
-    background: black;
-    color: white;
-    margin-bottom: 10px;
+    flex-direction: row;
     position: relative;
-    margin-left: -1%;
+}
+
+.projects-item .div {
+    max-width: 300px;
+    width: 300px;
+    min-width: 300px;
 }
 
 .projects-item:hover {
-    background: #232323;
+    background: #e8e8e8;
     cursor: pointer;
 }
 
 .project-settings {
     position: absolute;
-    width: 85%;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
-    text-align: center;
-    height: 100%;
+    justify-content: space-around;
+    top: 10%;
 }
 
 .project-settings-item {
@@ -103,7 +102,7 @@
     flex-direction: column;
     justify-content: center;
     border: 1px solid #bababa;
-    border-radius: 58px;
+    /* border-radius: 58px; */
     border: 1px solid #bababa;
     background: #232323;
     margin-left: 1%;
@@ -146,6 +145,11 @@
     color: white !important;
 }
 
+.ok-button:hover {
+    background: white !important;
+    color: black !important;
+}
+
 .schemas-list {
     position: absolute;
     width: fit-content;
@@ -165,6 +169,7 @@
     margin-bottom: 10px;
     position: relative;
     margin-left: -1%;
+    border-radius: 5px;
 }
 
 .schemas-item:hover {
@@ -218,6 +223,8 @@
     height: 9%;
     display: flex;
     justify-content: space-between;
+    top: 16%;
+    right: 27%;
 }
 
 .schema-button {
@@ -239,4 +246,15 @@
 .schema-concrete-button:hover {
     color: black !important;
     background: white !important;
+}
+
+.item-icon {
+
+}
+
+.projects-list-buttons {
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    top: 34%;
 }
