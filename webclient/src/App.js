@@ -12,6 +12,7 @@ import  LoginPage  from './pages/login/login-page';
 import TopBar from './common/components/appBar/appBar';
 import SidebarComponent from './common/components/sideBar/sideBar';
 import ProfilePage from './pages/profile/profile-page';
+import WorksPage from './pages/works/works-page';
 
 import './App.css';
 
@@ -43,7 +44,7 @@ class AppRoute extends Component {
                 {/* <Route exact path="/" component={MapPage} /> */}
                 <Route path="/login" component={LoginPage} />
                 <Route path="/profile" component={ProfilePage} />
-                {/* <Route path="/email-registration" component={EmailRegistrationPage} /> */}
+                <Route path="/works" component={WorksPage} />
                 {/* <Route path="/finish-registration" component={FinishRegistrationPage} /> */}
                 {/* <Route path="/refresh-password" component={RefreshPasswordPage} /> */}
                 {/* <Route path="/forgot-password" component={ForgotPasswordPage} /> */}
