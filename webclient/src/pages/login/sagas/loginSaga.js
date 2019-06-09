@@ -12,7 +12,7 @@ export function* Authorize(action) {
             data: action.payload
         });
         yield put(setAuthData(responseData.data));
-        history.push('/main');
+        history.push('/profile');
     } catch (error) {
         console.log("QQQQQQQQQQQQ")
     }

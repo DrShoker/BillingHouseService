@@ -11,6 +11,8 @@
     height: 50px;
     border: 1px solid #e8e8e8;
     width: 100%;
+    z-index: 1;
+    background: white;
 }
 
 .main-part {

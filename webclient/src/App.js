@@ -11,6 +11,7 @@ import { signinRequest } from './pages/login/actions/loginActions';
 import  LoginPage  from './pages/login/login-page';
 import TopBar from './common/components/appBar/appBar';
 import SidebarComponent from './common/components/sideBar/sideBar';
+import ProfilePage from './pages/profile/profile-page';
 
 import './App.css';
 
@@ -41,7 +42,7 @@ class AppRoute extends Component {
               <Switch>
                 {/* <Route exact path="/" component={MapPage} /> */}
                 <Route path="/login" component={LoginPage} />
-                {/* <Route path="/registration" component={RegistrationPage} /> */}
+                <Route path="/profile" component={ProfilePage} />
                 {/* <Route path="/email-registration" component={EmailRegistrationPage} /> */}
                 {/* <Route path="/finish-registration" component={FinishRegistrationPage} /> */}
                 {/* <Route path="/refresh-password" component={RefreshPasswordPage} /> */}
