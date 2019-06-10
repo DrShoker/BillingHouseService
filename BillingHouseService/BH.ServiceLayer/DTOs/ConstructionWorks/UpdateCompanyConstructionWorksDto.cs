@@ -7,6 +7,6 @@ namespace BH.ServiceLayer.DTOs.ConstructionWorks
 {
     public class UpdateCompanyConstructionWorksDto : CompanyConstructionWorksDto
     {
-        public Guid id { get; set; }
+        public Guid Id { get; set; }
     }
 }

@@ -63,12 +63,12 @@ namespace BH.WebApi.Controllers
             return DeleteResults.Deleted(this);
         }
 
-        [HttpGet("{workId}/companies/{companyId}")]
-        public IActionResult GetCompanyConstructionWorks(Guid companyId, Guid workId)
+        [HttpGet("{workId}/comp-const-works")]
+        public IActionResult GetCompanyConstructionWorks(Guid workId)
         {
+            var responseData = _companyConstructionWorksService.GetCompanyConstructionWorksByWorksId(workId);
 
-
-            return GetResults.Ok(this);
+            return GetResults.Ok(this, responseData);
         }
     }
 }

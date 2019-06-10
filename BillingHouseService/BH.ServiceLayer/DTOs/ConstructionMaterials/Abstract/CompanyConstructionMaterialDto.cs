@@ -8,5 +8,6 @@ namespace BH.ServiceLayer.DTOs.ConstructionMaterials.Abstract
     {
         public decimal Price { get; set; }
         public Guid CompanyId { get; set; }
+        public Guid Materiald { get; set; }
     }
 }

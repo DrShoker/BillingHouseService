@@ -11,7 +11,7 @@ namespace BH.DAL.Entities.TypeConfigurations
     {
         public void Configure(EntityTypeBuilder<SchemeConstructionWorks> builder)
         {
-            builder.HasKey(schemConsWrks => new { schemConsWrks.ConstructionWorksId, schemConsWrks.SchemeId });
+            //builder.HasKey(schemConsWrks => new { schemConsWrks.CompanyConstructionWorksId, schemConsWrks.SchemeId });
 
             //Entity SchemeConstructionWorks - ProjectScheme
             builder
@@ -19,11 +19,11 @@ namespace BH.DAL.Entities.TypeConfigurations
                 .WithMany(projSchem => projSchem.SchemeConstructionWorks)
                 .HasForeignKey(schemConsWrks => schemConsWrks.SchemeId);
 
-            //Entity SchemeConstructionWorks - ConstructionWorks
+            //Entity SchemeConstructionWorks - CompanyConstructionWorks
             builder
                 .HasOne(schemConsWrks => schemConsWrks.ConstructionWorks)
                 .WithMany(consWrks => consWrks.SchemeConstructionWorks)
-                .HasForeignKey(schemConsWrks => schemConsWrks.ConstructionWorksId);
+                .HasForeignKey(schemConsWrks => schemConsWrks.CompanyConstructionWorksId);
         }
     }
 }

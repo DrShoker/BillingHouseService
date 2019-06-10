@@ -4,14 +4,16 @@ using BH.DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BH.WebApi.Migrations
 {
     [DbContext(typeof(EntityFrameworkUnitOfWork))]
-    partial class EntityFrameworkUnitOfWorkModelSnapshot : ModelSnapshot
+    [Migration("20190610164616_AddSchemaCompanyConstWorks")]
+    partial class AddSchemaCompanyConstWorks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -175,18 +177,13 @@ namespace BH.WebApi.Migrations
 
             modelBuilder.Entity("BH.DTOL.Entities.SchemeConstructionWorks", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
                     b.Property<Guid>("CompanyConstructionWorksId");
-
-                    b.Property<Guid?>("ConstructionWorksId");
 
                     b.Property<Guid>("SchemeId");
 
-                    b.HasKey("Id");
+                    b.Property<Guid?>("ConstructionWorksId");
 
-                    b.HasIndex("CompanyConstructionWorksId");
+                    b.HasKey("CompanyConstructionWorksId", "SchemeId");
 
                     b.HasIndex("ConstructionWorksId");
 

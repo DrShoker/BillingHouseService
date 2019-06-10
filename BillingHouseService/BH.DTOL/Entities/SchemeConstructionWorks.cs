@@ -5,11 +5,11 @@ using BH.DTOL.Abstract;
 
 namespace BH.DTOL.Entities
 {
-    public class SchemeConstructionWorks
+    public class SchemeConstructionWorks : Entity<Guid>
     {
         public Guid SchemeId { get; set; }
-        public Guid ConstructionWorksId { get; set; }
+        public Guid CompanyConstructionWorksId { get; set; }
         public ProjectScheme ProjectScheme { get; set; }
-        public ConstructionWorks ConstructionWorks { get; set; }
+        public CompanyConstructionWorks ConstructionWorks { get; set; }
     }
 }

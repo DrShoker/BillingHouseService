@@ -19,5 +19,6 @@ namespace BH.ServiceLayer.Services.Interfaces.User
         SchemaWallModel CreateSchemaWall(Guid schemaId, CreateSchemaWallDto requestData);
         SchemaWallModel UpdateSchemaWall(Guid schemaId, UpdateSchemaWallDto requestData);
         void DeleteSchemaWall(Guid id);
+        void AddCompanyConstructionWorkToSchema(Guid schemaId, Guid workId);
     }
 }

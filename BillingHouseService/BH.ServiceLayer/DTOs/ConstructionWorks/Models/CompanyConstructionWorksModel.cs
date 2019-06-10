@@ -8,7 +8,7 @@ namespace BH.ServiceLayer.DTOs.ConstructionWorks.Models
     {
         public Guid Id { get; set; }
         public decimal Price { get; set; }
-        public object ConstructionMaterial { get; set; }
+        public object ConstructionWork { get; set; }
         public object Company { get; set; }
     }
 }

@@ -13,5 +13,6 @@ namespace BH.DTOL.Entities
         public ConstructionWorks ConstructionWorks { get; set; }
         public Company Company { get; set; }
         public IEnumerable<CompanyConstructionWorksConstructionMaterial> CompanyConstructionWorksConstructionMaterials { get; set; }
+        public IEnumerable<SchemeConstructionWorks> SchemeConstructionWorks { get; set; }
     }
 }

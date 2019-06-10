@@ -131,5 +131,17 @@ namespace BH.ServiceLayer.Services.UserServices
             _contextEntities.Delete<SchemeWall>(id);
             _contextEntities.Save();
         }
+
+        public void AddCompanyConstructionWorkToSchema(Guid schemaId, Guid workId)
+        {
+            var schemeConstructionWork = new SchemeConstructionWorks()
+            {
+                CompanyConstructionWorksId = workId,
+                SchemeId = schemaId,
+                Id = Guid.NewGuid()
+            };
+            _contextEntities.Create(schemeConstructionWork);
+            _contextEntities.Save();
+        }
     }
 }

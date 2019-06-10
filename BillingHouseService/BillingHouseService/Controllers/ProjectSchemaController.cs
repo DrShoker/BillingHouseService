@@ -86,12 +86,20 @@ namespace BH.WebApi.Controllers
             return PutResults.Accepted(this, responseData);
         }
 
-        [HttpDelete("schemaId/walls/{id}")]
+        [HttpDelete("{schemaId}/walls/{id}")]
         public IActionResult DeleteSchemaWall(Guid id)
         {
             _projectSchemaService.DeleteSchemaWall(id);
 
             return DeleteResults.Deleted(this);
+        }
+
+        [HttpPost("{schemaId}/const-work/{workId}")]
+        public IActionResult AddCompanyConstructionWorkToSchema(Guid schemaId, Guid workId)
+        {
+            _projectSchemaService.AddCompanyConstructionWorkToSchema(schemaId, workId);
+
+            return PostResults.Created(this);
         }
     }
 }
