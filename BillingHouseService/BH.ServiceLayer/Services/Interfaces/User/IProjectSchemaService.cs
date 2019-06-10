@@ -20,5 +20,6 @@ namespace BH.ServiceLayer.Services.Interfaces.User
         SchemaWallModel UpdateSchemaWall(Guid schemaId, UpdateSchemaWallDto requestData);
         void DeleteSchemaWall(Guid id);
         void AddCompanyConstructionWorkToSchema(Guid schemaId, Guid workId);
+        IEnumerable<CompConstWorkSchemaModel> GetCompConstWorkSchemaSum(Guid schemaId);
     }
 }

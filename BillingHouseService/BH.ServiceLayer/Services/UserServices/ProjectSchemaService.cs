@@ -6,6 +6,7 @@ using BH.ServiceLayer.DTOs.ProjectSchema;
 using BH.ServiceLayer.DTOs.ProjectSchema.Abstract;
 using BH.ServiceLayer.DTOs.ProjectSchema.Models;
 using BH.ServiceLayer.Services.Interfaces.User;
+using BH.ServiceLayer.Services.UserServices.CompConstWorkSchemaCoR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -142,6 +143,17 @@ namespace BH.ServiceLayer.Services.UserServices
             };
             _contextEntities.Create(schemeConstructionWork);
             _contextEntities.Save();
+        }
+
+        public IEnumerable<CompConstWorkSchemaModel> GetCompConstWorkSchemaSum(Guid schemaId)
+        {
+            var schemaIncludeProp = new string[] { "SchemeConstructionWorks.ConstructionWorks.ConstructionWorks" };
+            var dbSchema = _contextEntities.Repository.GetById<ProjectScheme>(schemaId, schemaIncludeProp);
+            var schemaConstWorks = dbSchema.SchemeConstructionWorks.Select(schCnstWrks => schCnstWrks.ConstructionWorks);
+            var director = new CompConstWorkSchemaCoRDirector();
+            var responseData = director.GetSchemaWorksSummary(dbSchema, schemaConstWorks);
+
+            return responseData;
         }
     }
 }

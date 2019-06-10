@@ -101,5 +101,13 @@ namespace BH.WebApi.Controllers
 
             return PostResults.Created(this);
         }
+
+        [HttpGet("{schemaId}/sum")]
+        public IActionResult GetCompConstWorkSchemaSum(Guid schemaId)
+        {
+            var responseData = _projectSchemaService.GetCompConstWorkSchemaSum(schemaId);
+
+            return GetResults.Ok(this, responseData);
+        }
     }
 }
