@@ -18,7 +18,8 @@ namespace BH.ServiceLayer.Services.UserServices.CompConstWorkSchemaCoR.Handlers
                 {
                     WorkName = compConstWork.ConstructionWorks.Name,
                     ParameterValue = paramVal,
-                    WorkSum = paramVal * compConstWork.PricePerSquareMeter
+                    WorkSum = paramVal * compConstWork.PricePerSquareMeter,
+                    WorkPrice = compConstWork.PricePerSquareMeter
                 };
                 resultList.Add(result);
             }
@@ -29,7 +30,8 @@ namespace BH.ServiceLayer.Services.UserServices.CompConstWorkSchemaCoR.Handlers
                 {
                     WorkName = compConstWork.ConstructionWorks.Name,
                     ParameterValue = paramVal,
-                    WorkSum = paramVal * compConstWork.PricePerSquareMeter
+                    WorkSum = paramVal * compConstWork.PricePerSquareMeter,
+                    WorkPrice = compConstWork.PricePerSquareMeter
                 };
                 resultList.Add(result);
             }
@@ -40,7 +42,8 @@ namespace BH.ServiceLayer.Services.UserServices.CompConstWorkSchemaCoR.Handlers
                 {
                     WorkName = compConstWork.ConstructionWorks.Name,
                     ParameterValue = paramVal,
-                    WorkSum = paramVal * compConstWork.PricePerSquareMeter
+                    WorkSum = paramVal * compConstWork.PricePerSquareMeter,
+                    WorkPrice = compConstWork.PricePerSquareMeter
                 };
                 resultList.Add(result);
             }

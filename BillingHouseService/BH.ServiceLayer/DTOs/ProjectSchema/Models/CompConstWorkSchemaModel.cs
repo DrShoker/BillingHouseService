@@ -9,5 +9,6 @@ namespace BH.ServiceLayer.DTOs.ProjectSchema.Models
         public decimal WorkSum { get; set; }
         public string WorkName { get; set; }
         public decimal ParameterValue { get; set; }
+        public decimal WorkPrice { get; set; }
     }
 }
