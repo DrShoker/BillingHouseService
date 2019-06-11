@@ -9,13 +9,16 @@ import {
     getSchemaDetailsRequest,
     updateSchemaRequest,
     createSchemaRequest,
-    deleteSchemaRequest
+    deleteSchemaRequest,
+    getSummaryListRequest
 } from './actions/profileActions';
 import Grid from '@material-ui/core/Grid';
 import ChromeReaderMode from '@material-ui/icons/ChromeReaderMode';
 import Description from '@material-ui/icons/Description';
+import AttachMoney from '@material-ui/icons/AttachMoney';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Modal from 'react-responsive-modal';
 import './profile-page.css'
 
 export class ProfilePage extends React.Component {
@@ -33,7 +36,8 @@ export class ProfilePage extends React.Component {
         isSchemasSettingsVisible: false,
         isSchemasListVisible: false,
         schemaId: '',
-        schema: {}
+        schema: {},
+        open: false,
     };
 
     // static getDerivedStateFromProps(nextProps, prevState) {
@@ -62,6 +66,7 @@ export class ProfilePage extends React.Component {
             projectName: projectItem.name,
             projectId: projectItem.id,
             isModadVisible: false,
+            totalSum: ''
         });
     }
 
@@ -260,6 +265,24 @@ export class ProfilePage extends React.Component {
         });
     }
 
+    calculateSchemaFinancials = () => {
+        console.log(this.props.schemaDetails);
+        return null;
+    }
+
+    onOpenModal = () => {
+
+        const { getSummaryListRequest, userId } = this.props;
+        const { projectId, schemaId } = this.state;
+        getSummaryListRequest({ userId, projectId, schemaId });
+        //calculateSchemaFinancials({})
+        this.setState({ open: true });
+      };
+     
+      onCloseModal = () => {
+        this.setState({ open: false });
+      };
+
     render() {
         const {
             isProjectSettingsVisible,
@@ -270,9 +293,10 @@ export class ProfilePage extends React.Component {
             isSchemasSettingsVisible,
             isSchemasListVisible,
             isEditSchema,
-            isProjectItemOpen
+            isProjectItemOpen,
+            open
         } = this.state;
-        const { projectsList, schemasList } = this.props;
+        const { projectsList, schemasList, summaryList, totalSum, schemaDetails } = this.props;
         return (
             <div className="profile-page">
                 <div className="profile-list">
@@ -464,7 +488,7 @@ export class ProfilePage extends React.Component {
                                                 <TextField
                                                     id="input-with-icon-gri"
                                                     label="Schema Name"
-                                                    defaultValue=''
+                                                    defaultValue={isEditSchema ? schemaDetails.name : null}
                                                     onChange={this.onSchemaNameChange}
                                                 />
                                             </Grid>
@@ -479,6 +503,7 @@ export class ProfilePage extends React.Component {
                                                 <TextField
                                                     id="input-with-icon-grid"
                                                     label="Walls Area"
+                                                    defaultValue={isEditSchema ? schemaDetails.wallsArea : null}
                                                     onChange={this.onSchemaWallsAreaChange}
                                                 />
                                             </Grid>
@@ -493,6 +518,7 @@ export class ProfilePage extends React.Component {
                                                 <TextField
                                                     id="input-with-icon-grid"
                                                     label="Floor Area"
+                                                    defaultValue={isEditSchema ? schemaDetails.floorArea : null}
                                                     onChange={this.onSchemaFloorAreaChange}
                                                 />
                                             </Grid>
@@ -507,6 +533,7 @@ export class ProfilePage extends React.Component {
                                                 <TextField
                                                     id="input-with-icon-grid"
                                                     label="Ceiling Area"
+                                                    defaultValue={isEditSchema ? schemaDetails.ceilingArea : null}
                                                     onChange={this.onSchemaCeilingAreaChange}
                                                 />
                                             </Grid>
@@ -521,6 +548,7 @@ export class ProfilePage extends React.Component {
                                                 <TextField
                                                     id="input-with-icon-grid"
                                                     label="Ceiling Perimeter"
+                                                    defaultValue={isEditSchema ? schemaDetails.ceilingPerimeter : null}
                                                     onChange={this.onSchemaCeilingPerimeterChange}
                                                 />
                                             </Grid>
@@ -535,6 +563,7 @@ export class ProfilePage extends React.Component {
                                                 <TextField
                                                     id="input-with-icon-grid"
                                                     label="Floor Perimeter"
+                                                    defaultValue={isEditSchema ? schemaDetails.floorPerimeter : null}
                                                     onChange={this.onSchemaFloorPerimeterChange}
                                                 />
                                             </Grid>
@@ -563,16 +592,66 @@ export class ProfilePage extends React.Component {
                                         </Button>
                                     </div>
                                     { isEditSchema && (
-                                        <div className="schema-button">
-                                            <Button
-                                                className="schema-concrete-button"
-                                                size="medium"
-                                                variant="contained"
-                                                onClick={this.deleteSchema}
-                                            >
-                                                Delete
+                                        <React.Fragment>
+                                            <div className="schema-button">
+                                                <Button
+                                                    className="schema-concrete-button"
+                                                    size="medium"
+                                                    variant="contained"
+                                                    onClick={this.deleteSchema}
+                                                >
+                                                    Delete
+                                                </Button>
+                                            </div>
+                                            <div className="schema-button">
+                                                <Button
+                                                    className="schema-concrete-button"
+                                                    size="medium"
+                                                    variant="contained"
+                                                    onClick={this.onOpenModal}
+                                                >
+                                                Get Summary
                                             </Button>
-                                        </div>
+                                            <Modal className="sum-modal" open={open} onClose={this.onCloseModal} center>
+                                            {
+                                                !!schemasList.length && (
+                                                    <div className="projects-list">
+                                                        <div className="sum-modal-column-list">
+                                                            <div className="list-column">
+                                                                <div>Work name</div>
+                                                            </div>
+                                                            <div className="list-column">
+                                                                <div>Work price</div>
+                                                            </div>
+                                                            <div className="list-column">
+                                                                <div>Parameter value</div>
+                                                            </div>
+                                                            <div className="list-column">
+                                                                <div>Summary</div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="sum-modal-content-list">
+                                                        {
+                                                            summaryList.map(item => (
+                                                                <div className="">
+                                                                    <div className="sum-modal-content-list-item">
+                                                                        <AttachMoney className="item-icon" />
+                                                                        <div>{item.workName}</div>
+                                                                        <div>{item.workPrice}$/m2</div>
+                                                                        <div>{item.parameterValue}m2</div>
+                                                                        <div className="color-green">{item.workSum}$</div>
+                                                                    </div>
+                                                                </div>
+                                                            ))
+                                                        }
+                                                        </div>
+                                                        <div className="sum-modal-content-total">TOTAL: {totalSum}$</div>
+                                                    </div>
+                                                )
+                                            }
+                                            </Modal>
+                                            </div>
+                                        </React.Fragment>
                                     )}
                                 </div>
                             </div>
@@ -589,6 +668,8 @@ export default connect(store => ({
     projectsList: store.profileReducer.projectsList,
     schemasList: store.profileReducer.schemasList,
     schemaDetails: store.profileReducer.schemaDetails,
+    summaryList: store.profileReducer.summaryList,
+    totalSum: store.profileReducer.totalSum
 }),
     {
         getProjectsListRequest,
@@ -599,5 +680,6 @@ export default connect(store => ({
         getSchemaDetailsRequest,
         updateSchemaRequest,
         createSchemaRequest,
-        deleteSchemaRequest
+        deleteSchemaRequest,
+        getSummaryListRequest
     })(ProfilePage);

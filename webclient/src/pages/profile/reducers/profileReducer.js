@@ -1,13 +1,16 @@
 import { 
     SET_PROJECTS_LIST, 
     SET_SCHEMAS_LIST,
-    SET_SCHEMA_DETAILS
+    SET_SCHEMA_DETAILS,
+    SET_SUMMARY_LIST
 } from './../actions/profileActions';
 
 const initialState = {
     projectsList: [],
     schemasList: [],
-    schemaDetails: {}
+    schemaDetails: {},
+    summaryList: [],
+    totalSum: 0,
 };
 
 export default function profileReducer (state = initialState, action) {
@@ -26,6 +29,12 @@ export default function profileReducer (state = initialState, action) {
             return {
                 ...state,
                 schemaDetails: action.payload.schemaDetails
+            };
+            case SET_SUMMARY_LIST:
+            return {
+                ...state,
+                summaryList: action.payload.summaryList,
+                totalSum: action.payload.totalSum
             }
         default:
             return state;

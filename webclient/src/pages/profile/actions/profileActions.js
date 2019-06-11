@@ -13,6 +13,8 @@ export const SET_SCHEMA_DETAILS = '@schemas/SET_SCHEMA_DETAILS';
 export const UPDATE_SCHEMA_REQUEST = '@projects/UPDATE_SCHEMA_REQUEST';
 export const CREATE_SCHEMA_REQUEST = '@projects/CREATE_SCHEMA_REQUEST';
 export const DELETE_SCHEMA_REQUEST = '@projects/DELETE_SCHEMA_REQUEST';
+export const GET_SUMMARY_LIST_REQUEST = '@schemas/GET_SUMMARY_LIST_REQUEST';
+export const SET_SUMMARY_LIST = '@schemas/SET_SUMMARY_LIST';
 
 export const getProjectsListRequest = ({ userId }) => ({
     type: GET_PROJECTS_LIST_REQUEST,
@@ -109,5 +111,22 @@ export const deleteSchemaRequest = ({ userId, projectId, schemaId }) => ({
         userId,
         projectId,
         schemaId
+    }
+});
+
+export const getSummaryListRequest = ({ userId, projectId, schemaId }) => ({
+    type: GET_SUMMARY_LIST_REQUEST,
+    payload: {
+        userId,
+        projectId,
+        schemaId
+    }
+});
+
+export const setSummaryList = ({ summaryList, totalSum }) => ({
+    type: SET_SUMMARY_LIST,
+    payload: {
+        summaryList,
+        totalSum
     }
 });

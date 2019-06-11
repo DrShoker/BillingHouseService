@@ -6,6 +6,7 @@ import {
     setSchemasListRequest,
     setSchemaDetails,
     getSchemasListRequest,
+    setSummaryList,
     GET_PROJECTS_LIST_REQUEST,
     UPDATE_PROJECT_REQUEST,
     CREATE_PROJECT_REQUEST,
@@ -14,7 +15,8 @@ import {
     GET_SCHEMA_DETAILS_REQUEST,
     UPDATE_SCHEMA_REQUEST,
     CREATE_SCHEMA_REQUEST,
-    DELETE_SCHEMA_REQUEST
+    DELETE_SCHEMA_REQUEST,
+    GET_SUMMARY_LIST_REQUEST
 } from './../actions/profileActions';
 
 
@@ -159,6 +161,30 @@ export function* DeleteProjectSchema(action) {
     }
 }
 
+export function* GetSchemaSummary(action) {
+    try {
+        const responseData = yield call(http, {
+            url: `users/${action.payload.userId}/projects/${action.payload.projectId}/schemas/${action.payload.schemaId}/sum`,
+            method: "GET",
+        });
+        yield console.log(responseData.data);
+        const total = yield calculateSchemaFinancials(responseData.data);
+        yield put(setSummaryList({summaryList: responseData.data, totalSum: total}));
+    } catch (error) {
+        console.log("QQQQQQQQQQQQ");
+    }
+}
+
+const calculateSchemaFinancials = (itemList) => {
+    let total = 0;
+    itemList.forEach((item) => {
+        total += item.workSum
+        console.log(total);
+    });
+    return total;
+    //this.setState({ totalSum: total });
+}
+
 export default function* ProfileRootSaga() {
     yield takeEvery(GET_PROJECTS_LIST_REQUEST, GetUserProjects);
     yield takeEvery(UPDATE_PROJECT_REQUEST, UpdateUserProject);
@@ -169,4 +195,5 @@ export default function* ProfileRootSaga() {
     yield takeEvery(UPDATE_SCHEMA_REQUEST, UpdateProjectSchema);
     yield takeEvery(CREATE_SCHEMA_REQUEST, CreateProjectSchema);
     yield takeEvery(DELETE_SCHEMA_REQUEST, DeleteProjectSchema);
+    yield takeEvery(GET_SUMMARY_LIST_REQUEST, GetSchemaSummary);
 }
